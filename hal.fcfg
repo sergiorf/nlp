@@ -1,0 +1,13 @@
+
+S -> VP NP
+S -> NP VP
+PP -> P NP
+NP -> Det N | Det N PP | 'I' | NP Adj N | Det NUM N
+VP -> V NP | VP PP | Det V
+Det -> 'an' | 'my' | 'what' | 'the'
+Adj -> 'largest'
+N -> 'elephant' | 'pajamas' | 'elephants' | 'shareholders'
+V -> 'shot' | 'are'
+P -> 'in'
+NUM -> '#NUM#'
+
