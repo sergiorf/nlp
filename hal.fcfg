@@ -1,13 +1,19 @@
+# ###################
+# Grammar Productions
+# ###################
+S -> WH NP PP
+WH -> Ask Be 
+PP -> P N
+NP -> Det Num N | Det N | N
 
-S -> VP NP
-S -> NP VP
-PP -> P NP
-NP -> Det N | Det N PP | 'I' | NP Adj N | Det NUM N
-VP -> V NP | VP PP | Det V
-Det -> 'an' | 'my' | 'what' | 'the'
-Adj -> 'largest'
-N -> 'elephant' | 'pajamas' | 'elephants' | 'shareholders'
-V -> 'shot' | 'are'
-P -> 'in'
-NUM -> '#NUM#'
+# ###################
+# Lexical Productions
+# ###################
+P -> '#IN#'
+Num -> '#NUM#'
+N -> '#NN#'
+Det -> '#DT#'
+Be -> 'be'
+Ask -> '#WDT#'
+
 
