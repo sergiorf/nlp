@@ -1,10 +1,10 @@
 import nltk
+import io
 from nltk import load_parser
+from nltk import Tree
 from nltk.stem import WordNetLemmatizer 
 
-#preprocessing:
-#create a unittest framework to do testing 
-class EngineHAL:
+class HalTreeParser:
 
     def get_tree(self, query):
 
@@ -43,7 +43,16 @@ class EngineHAL:
                 i = i + 1
             return tree
 
-        return None        
+        return None   
+
+    def get_pprint(self, tree):
+        content = ""
+        stream = io.StringIO(content)
+        # Some issue with the tree structure causes a problem with pprint
+        # That's why we have to convert to string and then parse 
+        Tree.fromstring(str(tree)).pretty_print(stream = stream)
+        return stream.getvalue()
+
 
 if __name__ == "__main__":
     #queries:
@@ -52,7 +61,6 @@ if __name__ == "__main__":
     #what companies whent public in belgium from 2017 to 2019
     #give me 20 shipping companies worldwide ordered by sales 
     #give me all foreign companies that have operations in poland
-    engine = EngineHAL()
+    engine = HalTreeParser()
     tree = engine.get_tree('what are the 10 shareholders of sony')
-    print (tree)
-    tree.pretty_print()
+    print (engine.get_pprint(tree))

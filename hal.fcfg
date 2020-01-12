@@ -1,8 +1,9 @@
 # ###################
 # Grammar Productions
 # ###################
-S -> WH NP PP
-WH -> Ask Be 
+S -> WH NP
+WH -> Ask Be
+NP -> NP PP 
 PP -> P N
 NP -> Det Num N | Det N | N
 
