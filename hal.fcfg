@@ -2,19 +2,31 @@
 # Grammar Productions
 # ###################
 S -> WH NP
-WH -> Ask Be
+S -> WH VP
+S -> VP NP
+WH -> Ask V 
+WH -> Ask N
+VP -> V Adj
+VP -> V PR 
+VP -> VP PP
 NP -> NP PP 
-PP -> P N
-NP -> Det Num N | Det N | N
+VP -> Adv | VP
+VP -> VP | Adv
+PP -> P Det N | P N | P NUM P NUM | P NUM | V P N
+NP -> N N N | N N 
+NP -> Det Adj N | Det NUM N | Det NUM Adj N | Det Adj NUM N | Det N | NUM V N | N
+NP -> Det Adj NP | Det NUM NP | Det NUM Adj NP | Det Adj NUM NP | Det N | NUM V NP | NP
 
 # ###################
 # Lexical Productions
 # ###################
-P -> '#IN#'
-Num -> '#NUM#'
+P -> '#IN#' | '#TO#'
+NUM -> '#NUM#'
 N -> '#NN#'
 Det -> '#DT#'
-Be -> 'be'
-Ask -> '#WDT#'
-
+V -> '#V#'
+PR -> '#PRP#'
+Ask -> '#WDT#' | '#WP#'
+Adj -> '#JJ#'
+Adv -> '#RB#'
 

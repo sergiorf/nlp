@@ -2,7 +2,7 @@ import nltk
 import io
 from nltk import load_parser
 from nltk import Tree
-from nltk.stem import WordNetLemmatizer 
+from nltk.stem import WordNetLemmatizer, PorterStemmer
 
 class HalTreeParser:
 
@@ -17,12 +17,14 @@ class HalTreeParser:
         for i in range(len(original_tokens)):
             t = original_tokens[i]
             pos = pos_tags[i][1]
-            if pos in ('VBD', 'VBP'):
-                simplified_tokens.append(lemmatizer.lemmatize(t, 'v'))
+            if pos.startswith('VB'):
+                simplified_tokens.append('#V#')
             elif t.isdigit():
                 simplified_tokens.append('#NUM#')
             elif pos in ('NN', 'NNS'):
                 simplified_tokens.append('#NN#')
+            elif pos in ('JJS', 'JJ'):
+                simplified_tokens.append('#JJ#')
             else:
                 simplified_tokens.append('#'+pos+'#')
 
@@ -33,11 +35,16 @@ class HalTreeParser:
         cp = load_parser('hal.fcfg')
         trees = cp.parse(simplified_tokens)
         for tree in trees:
-            # Put back the (lemmatized) names and numbers in the tree leaves 
+            # Put back the lemmas and numbers in the tree leaves 
             i = 0
             for leafPos in tree.treepositions('leaves'):
-                if simplified_tokens[i] == '#NN#':
+                if simplified_tokens[i] in ('#V#'):
+                    #verbs -> base form
+                    tree[leafPos] = lemmatizer.lemmatize(original_tokens[i], 'v')
+                elif simplified_tokens[i] in ('#NN#'):
                     tree[leafPos] = lemmatizer.lemmatize(original_tokens[i])
+                elif simplified_tokens[i] == '#JJ#':
+                    tree[leafPos] = lemmatizer.lemmatize(original_tokens[i], 'a')
                 elif simplified_tokens[i] == '#NUM#':
                     tree[leafPos] = original_tokens[i]
                 i = i + 1
@@ -56,11 +63,10 @@ class HalTreeParser:
 
 if __name__ == "__main__":
     #queries:
-    #what are the 10 shareholders of sony
-    #what are the 10 largest shareholders of sony
-    #what companies whent public in belgium from 2017 to 2019
-    #give me 20 shipping companies worldwide ordered by sales 
+    # 
     #give me all foreign companies that have operations in poland
-    engine = HalTreeParser()
-    tree = engine.get_tree('what are the 10 shareholders of sony')
-    print (engine.get_pprint(tree))
+    #select the top 10 companies that produce chocolate in belgium
+    #select all the companies that have more employees than amazon
+    treeparser = HalTreeParser()
+    tree = treeparser.get_tree('give me 20 shipping companies in the world ordered by sales')
+    print (treeparser.get_pprint(tree))
