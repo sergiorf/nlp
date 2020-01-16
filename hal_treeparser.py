@@ -63,10 +63,11 @@ class HalTreeParser:
 
 if __name__ == "__main__":
     #queries:
-    # 
-    #give me all foreign companies that have operations in poland
-    #select the top 10 companies that produce chocolate in belgium
     #select all the companies that have more employees than amazon
+    #What is mycustomer turnover in 2048
+    #Hat is mycustomer sales in 2018
+    #Xhat is mycustomer average sotck n 2018
     treeparser = HalTreeParser()
-    tree = treeparser.get_tree('give me 20 shipping companies in the world ordered by sales')
+    #tree = treeparser.get_tree('select the top 10 companies that produce chocolate in belgium')
+    tree = treeparser.get_tree('select the top 10 companies')
     print (treeparser.get_pprint(tree))

@@ -77,6 +77,19 @@ class HalTreeParserTests(unittest.TestCase):
         "    (PP[] (V[] order) (P[] #IN#) (N[] sale))))"
         self.compare_trees(t_a, t_b)
 
+    def test_get_test_7(self):
+        t_a = self.treeparser.get_tree('give me all foreign companies that have operations in poland')
+        t_b = "(S[]\n" \
+        "  (VP[] (V[] give) (PR[] #PRP#))\n" \
+        "  (NP[]\n" \
+        "    (NP[]\n" \
+        "      (Det[] #DT#)\n" \
+        "      (Adj[] foreign)\n" \
+        "      (NP[]\n" \
+        "        (NP[] (N[] company))\n" \
+        "        (PP[] (Ask[] #WDT#) (V[] have) (NP[] (N[] operation)))))\n" \
+        "    (PP[] (P[] #IN#) (N[] poland))))"
+        self.compare_trees(t_a, t_b)
 
     def compare_trees(self, tree_a, tree_b):
         print ('1: ' + str(str.splitlines(str(tree_a))))
@@ -87,4 +100,4 @@ if __name__ == '__main__':
     unittest.main()
     #t = HalTreeParserTests()
     #t.setUp()
-    #t.test_get_test_6()
+    #t.test_get_test_7()
