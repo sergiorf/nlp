@@ -91,6 +91,47 @@ class HalTreeParserTests(unittest.TestCase):
         "    (PP[] (P[] #IN#) (N[] poland))))"
         self.compare_trees(t_a, t_b)
 
+    def test_get_test_8(self):
+        t_a = self.treeparser.get_tree('select the top 10 companies that produce chocolate in belgium')
+        t_b = "(S[]\n" \
+        "  (VP[] (V[] select))\n" \
+        "  (NP[]\n" \
+        "    (NP[]\n" \
+        "      (Det[] #DT#)\n" \
+        "      (Adj[] top)\n" \
+        "      (NUM[] 10)\n" \
+        "      (NP[]\n" \
+        "        (NP[] (N[] company))\n" \
+        "        (PP[] (Ask[] #WDT#) (V[] produce) (NP[] (N[] chocolate)))))\n" \
+        "    (PP[] (P[] #IN#) (N[] belgium))))"
+        self.compare_trees(t_a, t_b)
+
+    def test_get_test_9(self):
+        t_a = self.treeparser.get_tree('select all the companies that have more employees than amazon')
+        t_b = "(S[]\n" \
+        "  (VP[] (V[] select))\n" \
+        "  (NP[]\n" \
+        "    (NP[] (Pdt[] all) (Det[] #DT#) (N[] company))\n" \
+        "    (PP[]\n" \
+        "      (Ask[] #WDT#)\n" \
+        "      (V[] have)\n" \
+        "      (NP[] (Comp[] more) (N[] employee) (P[] #IN#) (N[] amazon)))))"
+        self.compare_trees(t_a, t_b)
+
+    def test_get_test_10(self):
+        t_a = self.treeparser.get_tree('select all new and modified companies between 2015 and 2018')
+        t_b = "(S[]\n" \
+        "  (VP[] (V[] select))\n" \
+        "  (NP[]\n" \
+        "    (NP[]\n" \
+        "      (Det[] #DT#)\n" \
+        "      (Adj[] new)\n" \
+        "      (Conj[] and)\n" \
+        "      (Adj[] modified)\n" \
+        "      (N[] company))\n" \
+        "    (PP[] (P[] #IN#) (NUM[] 2015) (Conj[] and) (NUM[] 2018))))"
+        self.compare_trees(t_a, t_b)
+
     def compare_trees(self, tree_a, tree_b):
         print ('1: ' + str(str.splitlines(str(tree_a))))
         print ('2: ' + str(str.splitlines(str(tree_b))))
@@ -100,4 +141,4 @@ if __name__ == '__main__':
     unittest.main()
     #t = HalTreeParserTests()
     #t.setUp()
-    #t.test_get_test_7()
+    #t.test_get_test_10()

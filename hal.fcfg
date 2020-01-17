@@ -2,16 +2,14 @@
 # Grammar Productions
 # ###################
 S -> WH NP | WH VP | VP NP
-WH -> Ask V 
-WH -> Ask N
+WH -> Ask V | Ask N
 VP -> V Adj | V PR | VP PP
 NP -> NP PP 
-VP -> Adv | VP
-VP -> VP | Adv
-VP -> V
-PP -> P Det N | P N | P NUM P NUM | P NUM | V P N | Ask V NP
+VP -> Adv | VP | Adv | V
+PP -> P Det N | P N | P NUM P NUM | P NUM | V P N | Ask V NP | P NUM Conj NUM
 NP -> N N N | N N 
-NP -> Det Adj N | Det NUM N | Det NUM Adj N | Det Adj NUM N | Det N | NUM V N | N
+NP -> Pdt N | Pdt Det N| Det Adj N | Det Adj Conj Adj N | Det NUM N | Det NUM Adj N | Det Adj NUM N | Det N | NUM V N | N 
+NP -> Comp N P N | Comp P N
 NP -> Det Adj NP | Det NUM NP | Det NUM Adj NP | Det Adj NUM NP | Det N | NUM V NP | NP
 
 # ###################
@@ -26,4 +24,6 @@ PR -> '#PRP#'
 Ask -> '#WDT#' | '#WP#'
 Adj -> '#JJ#'
 Adv -> '#RB#'
-
+Pdt -> '#PDT#'
+Comp -> '#JJR#'
+Conj -> '#CC#'

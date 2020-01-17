@@ -45,7 +45,7 @@ class HalTreeParser:
                     tree[leafPos] = lemmatizer.lemmatize(original_tokens[i])
                 elif simplified_tokens[i] == '#JJ#':
                     tree[leafPos] = lemmatizer.lemmatize(original_tokens[i], 'a')
-                elif simplified_tokens[i] == '#NUM#':
+                elif simplified_tokens[i] in ('#NUM#', '#PDT#', '#JJR#', '#CC#'):
                     tree[leafPos] = original_tokens[i]
                 i = i + 1
             return tree
@@ -62,12 +62,8 @@ class HalTreeParser:
 
 
 if __name__ == "__main__":
-    #queries:
-    #select all the companies that have more employees than amazon
-    #What is mycustomer turnover in 2048
-    #Hat is mycustomer sales in 2018
-    #Xhat is mycustomer average sotck n 2018
     treeparser = HalTreeParser()
-    #tree = treeparser.get_tree('select the top 10 companies that produce chocolate in belgium')
-    tree = treeparser.get_tree('select the top 10 companies')
+    #tree = treeparser.get_tree('What are the sales of airbus in 2018')
+    #tree = treeparser.get_tree('what is the average stock of airbus in 2018')
+    tree = treeparser.get_tree('what is the average stock of airbus between 2015 and 2018')
     print (treeparser.get_pprint(tree))
