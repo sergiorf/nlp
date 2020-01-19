@@ -2,10 +2,9 @@
 # Grammar Productions
 # ###################
 S -> NP VP | VP NP
-VP -> Ask V | V Adj | V PR | VP PP
-NP -> Ask N |NP PP 
-VP -> Adv | VP | Adv | V
+VP -> Ask V | V Adj | V PR | VP PP | Adv | VP | Adv | V
 PP -> P Det N | P N | P NUM P NUM | P NUM | V P N | Ask V NP | P NUM Conj NUM
+NP -> Ask N |NP PP 
 NP -> N N N | N N 
 NP -> Pdt N | Pdt Det N| Det Adj N | Det Adj Conj Adj N | Det NUM N | Det NUM Adj N | Det Adj NUM N | Det N | NUM V N | N 
 NP -> Comp N P N | Comp P N
