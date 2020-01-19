@@ -10,7 +10,7 @@ class HalTreeParserTests(unittest.TestCase):
     def test_get_tree_1(self):
         t_a = self.treeparser.get_tree('what are the 10 shareholders of sony')
         t_b = "(S[]\n" \
-        "  (WH[] (Ask[] #WDT#) (V[] be))\n" \
+        "  (VP[] (Ask[] #WDT#) (V[] be))\n" \
         "  (NP[]\n" \
         "    (Det[] #DT#)\n" \
         "    (NUM[] 10)\n" \
@@ -20,7 +20,7 @@ class HalTreeParserTests(unittest.TestCase):
     def test_get_tree_2(self):
         t_a = self.treeparser.get_tree('what are the 10 largest shareholders of sony')
         t_b = "(S[]\n" \
-        "  (WH[] (Ask[] #WDT#) (V[] be))\n" \
+        "  (VP[] (Ask[] #WDT#) (V[] be))\n" \
         "  (NP[]\n" \
         "    (Det[] #DT#)\n" \
         "    (NUM[] 10)\n" \
@@ -31,7 +31,7 @@ class HalTreeParserTests(unittest.TestCase):
     def test_get_tree_3(self):
         t_a = self.treeparser.get_tree('what companies went public in belgium in 2017')
         t_b = "(S[]\n" \
-        "  (WH[] (Ask[] #WP#) (N[] company))\n" \
+        "  (NP[] (Ask[] #WP#) (N[] company))\n" \
         "  (VP[]\n" \
         "    (VP[]\n" \
         "      (VP[] (V[] go) (Adj[] public))\n" \
@@ -42,7 +42,7 @@ class HalTreeParserTests(unittest.TestCase):
     def test_get_tree_4(self):
         t_a = self.treeparser.get_tree('what companies went public in belgium from 2017 to 2019')
         t_b = "(S[]\n" \
-        "  (WH[] (Ask[] #WP#) (N[] company))\n" \
+        "  (NP[] (Ask[] #WP#) (N[] company))\n" \
         "  (VP[]\n" \
         "    (VP[]\n" \
         "      (VP[] (V[] go) (Adj[] public))\n" \
@@ -135,7 +135,7 @@ class HalTreeParserTests(unittest.TestCase):
     def test_get_test_11(self):
         t_a = self.treeparser.get_tree('what is the average stock of airbus between 2015 and 2018')
         t_b = "(S[]\n" \
-        "  (WH[] (Ask[] #WP#) (V[] be))\n" \
+        "  (VP[] (Ask[] #WP#) (V[] be))\n" \
         "  (NP[]\n" \
         "    (NP[]\n" \
         "      (Det[] #DT#)\n" \
@@ -147,7 +147,7 @@ class HalTreeParserTests(unittest.TestCase):
     def test_get_test_12(self):
         t_a = self.treeparser.get_tree('What are the sales of airbus in 2018')
         t_b = "(S[]\n" \
-        "  (WH[] (Ask[] #WP#) (V[] be))\n" \
+        "  (VP[] (Ask[] #WP#) (V[] be))\n" \
         "  (NP[]\n" \
         "    (NP[]\n" \
         "      (NP[] (Det[] #DT#) (N[] sale))\n" \
@@ -158,7 +158,7 @@ class HalTreeParserTests(unittest.TestCase):
     def test_get_test_13(self):
         t_a = self.treeparser.get_tree('what is the average stock of airbus in 2018')
         t_b = "(S[]\n" \
-        "  (WH[] (Ask[] #WP#) (V[] be))\n" \
+        "  (VP[] (Ask[] #WP#) (V[] be))\n" \
         "  (NP[]\n" \
         "    (NP[]\n" \
         "      (Det[] #DT#)\n" \
