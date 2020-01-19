@@ -60,10 +60,10 @@ class HalTreeParser:
         Tree.fromstring(str(tree)).pretty_print(stream = stream)
         return stream.getvalue()
 
+    def get_expression(self, tree):
+        return None
 
 if __name__ == "__main__":
     treeparser = HalTreeParser()
-    #tree = treeparser.get_tree('What are the sales of airbus in 2018')
-    #tree = treeparser.get_tree('what is the average stock of airbus in 2018')
-    tree = treeparser.get_tree('what is the average stock of airbus between 2015 and 2018')
+    tree = treeparser.get_tree('')
     print (treeparser.get_pprint(tree))

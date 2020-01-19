@@ -132,6 +132,41 @@ class HalTreeParserTests(unittest.TestCase):
         "    (PP[] (P[] #IN#) (NUM[] 2015) (Conj[] and) (NUM[] 2018))))"
         self.compare_trees(t_a, t_b)
 
+    def test_get_test_11(self):
+        t_a = self.treeparser.get_tree('what is the average stock of airbus between 2015 and 2018')
+        t_b = "(S[]\n" \
+        "  (WH[] (Ask[] #WP#) (V[] be))\n" \
+        "  (NP[]\n" \
+        "    (NP[]\n" \
+        "      (Det[] #DT#)\n" \
+        "      (Adj[] average)\n" \
+        "      (NP[] (NP[] (N[] stock)) (PP[] (P[] #IN#) (N[] airbus))))\n" \
+        "    (PP[] (P[] #IN#) (NUM[] 2015) (Conj[] and) (NUM[] 2018))))"
+        self.compare_trees(t_a, t_b)
+
+    def test_get_test_12(self):
+        t_a = self.treeparser.get_tree('What are the sales of airbus in 2018')
+        t_b = "(S[]\n" \
+        "  (WH[] (Ask[] #WP#) (V[] be))\n" \
+        "  (NP[]\n" \
+        "    (NP[]\n" \
+        "      (NP[] (Det[] #DT#) (N[] sale))\n" \
+        "      (PP[] (P[] #IN#) (N[] airbus)))\n" \
+        "    (PP[] (P[] #IN#) (NUM[] 2018))))"
+        self.compare_trees(t_a, t_b)
+
+    def test_get_test_13(self):
+        t_a = self.treeparser.get_tree('what is the average stock of airbus in 2018')
+        t_b = "(S[]\n" \
+        "  (WH[] (Ask[] #WP#) (V[] be))\n" \
+        "  (NP[]\n" \
+        "    (NP[]\n" \
+        "      (Det[] #DT#)\n" \
+        "      (Adj[] average)\n" \
+        "      (NP[] (NP[] (N[] stock)) (PP[] (P[] #IN#) (N[] airbus))))\n" \
+        "    (PP[] (P[] #IN#) (NUM[] 2018))))"
+        self.compare_trees(t_a, t_b)
+
     def compare_trees(self, tree_a, tree_b):
         print ('1: ' + str(str.splitlines(str(tree_a))))
         print ('2: ' + str(str.splitlines(str(tree_b))))
@@ -141,4 +176,4 @@ if __name__ == '__main__':
     unittest.main()
     #t = HalTreeParserTests()
     #t.setUp()
-    #t.test_get_test_10()
+    #t.test_get_test_13()
