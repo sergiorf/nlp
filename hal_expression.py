@@ -43,11 +43,18 @@ class HalExpression:
         num_rows = None
         table_1 = None
         table_2 = None
-        # get all the leaves and prepend type to them
         # number just replace by top 
         # take two names in order, see if first name has an attribute of second name -> gen sql inner join
-        for leave in np.leaves():
-            print(leave)
+        leaves = self.get_annotated_leaves(np)
+        print (leaves)
+
+    def get_annotated_leaves(self, tree):
+        leaves = []
+        for idx, leave in enumerate(tree.leaves()):
+            tree_location = tree.leaf_treeposition(idx)
+            non_terminal = tree[tree_location[:-1]]
+            leaves.append((repr(non_terminal.label()), leave))
+        return leaves
     
 if __name__ == '__main__':
     tree = HalTreeParser().get_tree(query = "what are the 10 shareholders of sony")
