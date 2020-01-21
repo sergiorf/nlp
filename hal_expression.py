@@ -4,9 +4,10 @@ from hal_treeparser import HalTreeParser
 class HalExpression:
 
     def __init__(self, tree): 
+
         self.tree = tree
         self.table_metadata = {
-            "shareholder": ["id", "name", "company_id"],
+            "shareholder": ["id", "name", { "of": ["company", "company_id"] }]
             "company": ["id", "name"]
         }
 
@@ -32,21 +33,56 @@ class HalExpression:
         pass
     
     def gen_vpfirst_sent(self, vp, np, sql_tokens):
+
         leaves = vp.leaves()
         if (['#WDT#', 'be'] == leaves):
             sql_tokens.append('SELECT')
-            self.gen_vpfirst_np(np, sql_tokens)
+            leaves = self.get_annotated_leaves(np)
+            if self.get_form1(leaves, sql_tokens):
+                return sql_tokens
+            
         else: 
             raise ValueError('Invalid sentence structure') 
 
-    def gen_vpfirst_np(self, np, sql_tokens):
-        num_rows = None
-        table_1 = None
-        table_2 = None
-        # number just replace by top 
-        # take two names in order, see if first name has an attribute of second name -> gen sql inner join
-        leaves = self.get_annotated_leaves(np)
-        print (leaves)
+    def get_form1(self, leaves, sql_tokens):
+
+        num, name1, _, name2 = self.grep_leaves(leaves, 'NUM[]*N[]*P[]*N[]')
+        if num and name1 and name2:
+            if name1 in self.table_metadata:
+
+                sql_tokens.append'top(' + num + ')')
+                sql_tokens.append('*')
+                sql_tokens.append('from')
+                sql_tokens.append(name1 + ' as n1')
+                sql_tokens.append('inner join')
+                sql_tokens.append(self.table_metadata["of"][0])
+                sql_tokens.append("as n2")
+                sql_tokens.append("on n2.id = n1." + self.table_metadata["of"[1]])
+                sql_tokens.append("where n2.name = " + name2)                
+                return True
+
+        return False
+
+#"select top(10) * from shareholder as sh " \
+#                  "join company as co on co.id = sh.company_id "  \
+#                  "where co.name = \"sony\"" \
+#                   )
+        return False 
+
+    def grep_leaves(self, leaves, regex):
+        i = 0
+        r = regex.split('*')
+        c = 0
+        result = [None for i in range(len(r))]
+        for i in range(len(leaves)):
+            if c == len(r):
+                break
+            leave = leaves[i]
+            if leave[0] == r[c]:
+                result[c] = leave[1]
+                c += 1
+            i += 1
+        return result            
 
     def get_annotated_leaves(self, tree):
         leaves = []
@@ -61,9 +97,3 @@ if __name__ == '__main__':
     print (HalTreeParser().get_pprint(tree))
     expr = HalExpression(tree)
     print (expr.gen_sql())
-
-
-#"select top(10) * from shareholder as sh " \
-#                  "join company as co on co.id = sh.company_id "  \
-#                  "where co.name = \"sony\"" \
-#                   )
